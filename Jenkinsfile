@@ -5,18 +5,45 @@ pipeline
     {
         stage("Build")
         {
-            echo "Building..."
-        }
-        post
-        {
-            success
+            steps
             {
-                mail to: "mattybravo19@gmail.com"
-                subject: "Build Status Email"
-                body: "Build was successful"
+                echo "Building..."
+            }
+            post
+            {
+                always
+                {
+                    mail to: "mattybravo19@gmail.com",
+                    subject: "Build Status Email",
+                    body: "Build was successful"
+                }
+            }
+        }
+
+        stage("Test")
+        {
+            steps
+            {
+                echo "Testing"
+            }
+        }
+
+        stage("Deploy")
+        {
+            steps
+            {
+                echo "Deploying"
             }
         }
     }
-
-
+    
+    post
+    {
+        success
+        {
+            mail to: "mattybravo19@gmail.com",
+            subject: "Build Status Email",
+            body: "Build was successful"
+        }
+    }
 }
