@@ -15,7 +15,7 @@ pipeline
         {
             steps
             {
-                echo "Perform unit and integration tests using JUnit and Selenium"
+                echoo "Perform unit and integration tests using JUnit and Selenium"
             }
 
             post
@@ -67,7 +67,7 @@ pipeline
         {
             steps
             {
-                echo "Scan the code for any vulnerabilities or security issues using the plugins on SonarQube "
+                echoo "Scan the code for any vulnerabilities or security issues using the plugins on SonarQube "
             }
 
             post
