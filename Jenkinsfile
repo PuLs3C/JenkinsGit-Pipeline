@@ -22,20 +22,24 @@ pipeline
             {
                 always
                 {
-                     // Capture the console log and save it to a file
-                    def testLogs = currentBuild.rawBuild.getLog(1000).join("\n")
-                    writeFile file: 'test-stage-log.txt', text: testLogs
-                    archiveArtifacts artifacts: 'test-stage-log.txt'
+                    script
+                    {
+                        // Capture the console log and save it to a file
+                        def testLogs = currentBuild.rawBuild.getLog(1000).join("\n")
+                        writeFile file: 'test-stage-log.txt', text: testLogs
+                        archiveArtifacts artifacts: 'test-stage-log.txt'
+                    }
+                    
                 }
                
 
                 failure
                 {
                     emailext(
-                        to 'mattybravo19@gmail.com',
-                        subject 'Project Testing: Failed',
-                        body 'Unit and integration tests have failed',
-                        attachmentsPattern 'test-stage-log.txt'
+                        to: 'mattybravo19@gmail.com',
+                        subject: 'Project Testing: Failed',
+                        body: 'Unit and integration tests have failed',
+                        attachmentsPattern: 'test-stage-log.txt'
                     )
                 }
 
@@ -47,9 +51,7 @@ pipeline
                         body: 'Unit and integration tests were successful',
                         attachmentsPattern: 'test-stage-log.txt'
                     )
-
                 }
-
             }
         }
 
@@ -72,10 +74,13 @@ pipeline
             {
                 always
                 {
-                    // Capture the console log and save it to a file
-                    def securityLogs = currentBuild.rawBuild.getLog(1000).join("\n")
-                    writeFile file: 'security-stage-log.txt', text: securityLogs
-                    archiveArtifacts artifacts: 'security-stage-log.txt'
+                    script
+                    {
+                        // Capture the console log and save it to a file
+                        def securityLogs = currentBuild.rawBuild.getLog(1000).join("\n")
+                        writeFile file: 'security-stage-log.txt', text: securityLogs
+                        archiveArtifacts artifacts: 'security-stage-log.txt
+                    }
                 }
            
                 failure
