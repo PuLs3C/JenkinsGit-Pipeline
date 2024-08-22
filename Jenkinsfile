@@ -79,7 +79,7 @@ pipeline
                         // Capture the console log and save it to a file
                         def securityLogs = currentBuild.rawBuild.getLog(1000).join("\n")
                         writeFile file: 'security-stage-log.txt', text: securityLogs
-                        archiveArtifacts artifacts: 'security-stage-log.txt
+                        archiveArtifacts artifacts: 'security-stage-log.txt'
                     }
                 }
            
