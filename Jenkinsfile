@@ -35,10 +35,9 @@ pipeline
                     (
                         to: 'mattybravo19@gmail.com',
                         subject: 'Project Testing: Failed',
-                        emailext body: 'Unit and integration tests have failed',
+                        body: 'Unit and integration tests have failed',
                         attachmentsPattern: 'test-stage-log.txt'
                     )
-
                 }
 
                 success
