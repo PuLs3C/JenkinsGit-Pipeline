@@ -29,10 +29,8 @@ pipeline
                 }
                
 
-                failure
-                {
-                    emailext
-                    (
+               failure {
+                    emailext(
                         to: 'mattybravo19@gmail.com',
                         subject: 'Project Testing: Failed',
                         body: 'Unit and integration tests have failed',
