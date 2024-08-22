@@ -29,7 +29,8 @@ pipeline
                 }
                
 
-               failure {
+                failure
+                {
                     emailext(
                         to: 'mattybravo19@gmail.com',
                         subject: 'Project Testing: Failed',
@@ -40,11 +41,10 @@ pipeline
 
                 success
                 {
-                    emailext
-                    (
+                    emailext(
                         to: 'mattybravo19@gmail.com',
                         subject: 'Project Testing: Successful',
-                        emailext body: 'Unit and integration tests were successful',
+                        body: 'Unit and integration tests were successful',
                         attachmentsPattern: 'test-stage-log.txt'
                     )
 
@@ -70,28 +70,34 @@ pipeline
 
             post
             {
-                // Capture the console log and save it to a file
-                def securityLogs = currentBuild.rawBuild.getLog(1000).join("\n")
-                writeFile file: 'security-stage-log.txt', text: securityLogs
-                archiveArtifacts artifacts: 'security-stage-log.txt'
-
+                always
+                {
+                    // Capture the console log and save it to a file
+                    def securityLogs = currentBuild.rawBuild.getLog(1000).join("\n")
+                    writeFile file: 'security-stage-log.txt', text: securityLogs
+                    archiveArtifacts artifacts: 'security-stage-log.txt'
+                }
+           
                 failure
                 {
-                    to: 'mattybravo19@gmail.com',
-                    subject: 'Project Security Scan: Hazardous',
-                    emailext body: 'Security scans complete, vulnerabilites or security issues were identified',
-                    attachmentsPattern: 'security-stage-log.txt'
+                    emailext(
+                        to: 'mattybravo19@gmail.com',
+                        subject: 'Project Security Scan: Hazardous',
+                        body: 'Security scans complete, vulnerabilites or security issues were identified',
+                        attachmentsPattern: 'security-stage-log.txt'
+                    )
                 }
 
                 success
                 {
+                    emailext(
                     to: 'mattybravo19@gmail.com',
                     subject: 'Project Security Scan: Safe',
-                    emailext body: 'Security scans complete, no vulnerabilities or security risks were identified',
-                    attachmentsPattern: 'security-stage-log.txt'    
+                    body: 'Security scans complete, no vulnerabilities or security risks were identified',
+                    attachmentsPattern: 'security-stage-log.txt'   
+                    ) 
                 }
             }
-
         }
 
         stage("5. Deploy to staging")
