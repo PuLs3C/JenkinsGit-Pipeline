@@ -15,7 +15,7 @@ pipeline
         {
             steps
             {
-                echo "Perform unit and integration tests using JUnit and Selenium"
+                echoo "Perform unit and integration tests using JUnit and Selenium"
             }
 
             post
