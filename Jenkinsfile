@@ -7,20 +7,11 @@ pipeline
         {
             steps
             {
-                echo "Building..."
-            }
-            post
-            {
-                always
-                {
-                    mail to: "mattybravo19@gmail.com",
-                    subject: "Build Status Email",
-                    body: "Build was successful"
-                }
+                echo "Building with Maven"
             }
         }
 
-        stage("Test")
+        stage("Unit and Integration Testing")
         {
             steps
             {
