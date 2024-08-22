@@ -35,6 +35,15 @@ pipeline
                 echo "Deploying"
             }
         }
+
+        stage("Complete")
+        {
+            steps
+            {
+                echo "Project completed"
+            }
+        }
+        
     }
     
     post
