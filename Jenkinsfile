@@ -32,10 +32,10 @@ pipeline
                 failure
                 {
                     emailext(
-                        to: 'mattybravo19@gmail.com',
-                        subject: 'Project Testing: Failed',
-                        body: 'Unit and integration tests have failed',
-                        attachmentsPattern: 'test-stage-log.txt'
+                        to 'mattybravo19@gmail.com',
+                        subject 'Project Testing: Failed',
+                        body 'Unit and integration tests have failed',
+                        attachmentsPattern 'test-stage-log.txt'
                     )
                 }
 
