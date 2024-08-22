@@ -20,26 +20,38 @@ pipeline
 
             post
             {
-                // Capture the console log and save it to a file
-                def testLogs = currentBuild.rawBuild.getLog(1000).join("\n")
-                writeFile file: 'test-stage-log.txt', text: testLogs
-                archiveArtifacts artifacts: 'test-stage-log.txt'
+                always
+                {
+                     // Capture the console log and save it to a file
+                    def testLogs = currentBuild.rawBuild.getLog(1000).join("\n")
+                    writeFile file: 'test-stage-log.txt', text: testLogs
+                    archiveArtifacts artifacts: 'test-stage-log.txt'
+                }
+               
 
                 failure
                 {
-                    to: 'mattybravo19@gmail.com',
-                    subject: 'Project Testing: Failed',
-                    emailext body: 'Unit and integration tests have failed',
-                    attachmentsPattern: 'test-stage-log.txt'
+                    emailext
+                    (
+                        to: 'mattybravo19@gmail.com',
+                        subject: 'Project Testing: Failed',
+                        emailext body: 'Unit and integration tests have failed',
+                        attachmentsPattern: 'test-stage-log.txt'
+                    )
+
                 }
 
                 success
-                {   
-                    to: 'mattybravo19@gmail.com',
-                    subject: 'Project Testing: Successful',
-                    emailext body: 'Unit and integration tests were successful',
-                    attachmentsPattern: 'test-stage-log.txt'
-                 }
+                {
+                    emailext
+                    (
+                        to: 'mattybravo19@gmail.com',
+                        subject: 'Project Testing: Successful',
+                        emailext body: 'Unit and integration tests were successful',
+                        attachmentsPattern: 'test-stage-log.txt'
+                    )
+
+                }
 
             }
         }
